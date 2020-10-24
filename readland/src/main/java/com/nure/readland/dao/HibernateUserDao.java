@@ -34,4 +34,23 @@ public class HibernateUserDao extends HibernateUtils implements UserDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public User findByLogin(String login) {
+        if(login == null || login.isEmpty()){
+            throw new RuntimeException("login was null or empty");
+        }
+        try (Session session = getSessionFactory().openSession()){
+            Query query = session.createQuery("from User where login like :login");
+            query.setParameter("login", login);
+            List<User> users = query.list();
+            if(users.size() > 0){
+                return users.get(0);
+            }
+            return null;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }

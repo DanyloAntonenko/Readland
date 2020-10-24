@@ -7,5 +7,5 @@ import java.util.List;
 public interface UserDao {
     List<User> findAll();
     User findById(Long id);
-
+    User findByLogin(String login);
 }
