@@ -1,6 +1,7 @@
 package com.nure.readland.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "usr")
@@ -24,6 +25,17 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Book> chosen;
+
+    public List<Book> getChosen() {
+        return chosen;
+    }
+
+    public void setChosen(List<Book> chosen) {
+        this.chosen = chosen;
+    }
 
     public Long getId() {
         return id;

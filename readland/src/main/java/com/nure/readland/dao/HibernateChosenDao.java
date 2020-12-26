@@ -12,8 +12,8 @@ public class HibernateChosenDao extends HibernateUtils implements ChosenDao {
 	@Override
 	public List<Chosen> getChosenForUser(User user) {
 		try (Session session = getSessionFactory().openSession()) {
-			Query query = session.createQuery("from Chosen where user = :id");
-			query.setParameter("id", user);
+			Query query = session.createQuery("from Chosen where user_id = :id");
+			query.setParameter("id", user.getId());
 			return query.list();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -21,7 +21,7 @@ public class HibernateChosenDao extends HibernateUtils implements ChosenDao {
 	}
 
 	@Override
-	public Chosen add(Chosen chosen) {
+	public Chosen create(Chosen chosen) {
 		try (Session session = getSessionFactory().openSession()) {
 			chosen = (Chosen) session.save(chosen);
 			return chosen;

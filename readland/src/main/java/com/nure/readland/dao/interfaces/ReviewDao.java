@@ -8,6 +8,6 @@ import java.util.List;
 public interface ReviewDao {
     List<Review> getAll();
     List<Review> getReviewsForBook(Book book);
-    Review add(Review review);
+    Review create(Review review);
     void delete(Review review);
 }

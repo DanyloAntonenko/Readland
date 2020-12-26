@@ -17,7 +17,7 @@ public abstract class HibernateUtils {
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Book.class);
             configuration.addAnnotatedClass(Review.class);
-            configuration.addAnnotatedClass(Chosen.class);
+//            configuration.addAnnotatedClass(Chosen.class);
 
             sessionFactory = configuration.configure().buildSessionFactory();
         }catch (Exception e){
