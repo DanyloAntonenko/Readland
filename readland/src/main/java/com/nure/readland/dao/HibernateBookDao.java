@@ -20,7 +20,7 @@ public class HibernateBookDao extends HibernateUtils implements BookDao {
     @Override
     public Book getById(Long id) {
         try(Session session = getSessionFactory().openSession()){
-            Query query = session.createQuery("from Book where user_id = :id");
+            Query query = session.createQuery("from Book where id = :id");
             query.setParameter("id", id);
             List<Book> res = query.list();
             if(res.size() > 0){

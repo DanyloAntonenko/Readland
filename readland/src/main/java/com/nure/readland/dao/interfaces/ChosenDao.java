@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ChosenDao {
     List<Chosen> getChosenForUser(User user);
-    Chosen add(Chosen chosen);
+    Chosen create(Chosen chosen);
     void delete(Chosen chosen);
 }
