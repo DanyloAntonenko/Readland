@@ -1,5 +1,6 @@
 package com.nure.readland.model;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -66,4 +67,5 @@ public class Review {
     public void setMark(Integer mark) {
         this.mark = mark;
     }
+
 }
