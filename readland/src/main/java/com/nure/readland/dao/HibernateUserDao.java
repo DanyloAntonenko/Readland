@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
+//TODO create service
 public class HibernateUserDao extends HibernateUtils implements UserDao {
     @Override
     public List<User> findAll() {
@@ -52,5 +53,20 @@ public class HibernateUserDao extends HibernateUtils implements UserDao {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public User create(User user) {
+        return null;
+    }
+
+    @Override
+    public User update(User user) {
+        return null;
+    }
+
+    @Override
+    public User delete(User user) {
+        return null;
     }
 }

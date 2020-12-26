@@ -16,7 +16,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/", "/admin", "/user", "/lib").permitAll().and()
+                .authorizeRequests().antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/admin").hasRole("admin").and()
+                .authorizeRequests().antMatchers("/user").hasRole("user").and()
+                .authorizeRequests().antMatchers("/lib").hasRole("lib").and()
                 .formLogin().loginPage("/login").permitAll().successHandler(successHandler).and()
                 .csrf().disable();
     }
