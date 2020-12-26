@@ -1,11 +1,10 @@
 package com.nure.readland.model;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "review")
-public class Review {
+@Table(name = "chosen")
+public class Chosen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,13 +17,7 @@ public class Review {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @Column
-    private String comment;
-
-    @Column
-    private Integer mark;
-
-    public Review(){
+    public Chosen(){
 
     }
 
@@ -51,21 +44,4 @@ public class Review {
     public void setBook(Book book) {
         this.book = book;
     }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Integer getMark() {
-        return mark;
-    }
-
-    public void setMark(Integer mark) {
-        this.mark = mark;
-    }
-
 }

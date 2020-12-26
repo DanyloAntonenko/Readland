@@ -1,75 +1,89 @@
 package com.nure.readland.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "book")
 public class Book {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	private String name;
-	private String file;
-	private Long numberOfViews;
-	private String tags;
-	private String description;
-	private String picture;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Integer getId() {
-		return id;
-	}
+    @Column
+    private String name;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Column
+    private String pathToFile;
 
-	public String getName() {
-		return name;
-	}
+    @Column
+    private Long views;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column
+    private String tags;
 
-	public String getFile() {
-		return file;
-	}
+    @Column
+    private String description;
 
-	public void setFile(String file) {
-		this.file = file;
-	}
+    @Column
+    private String pathToPic;
 
-	public long getNumberOfViews() {
-		return numberOfViews;
-	}
+    public Book(){
 
-	public void setNumberOfViews(long numberOfViews) {
-		this.numberOfViews = numberOfViews;
-	}
+    }
 
-	public String getTags() {
-		return tags;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPicture() {
-		return picture;
-	}
+    public String getPathToFile() {
+        return pathToFile;
+    }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+    public void setPathToFile(String pathToFile) {
+        this.pathToFile = pathToFile;
+    }
+
+    public Long getViews() {
+        return views;
+    }
+
+    public void setViews(Long views) {
+        this.views = views;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPathToPic() {
+        return pathToPic;
+    }
+
+    public void setPathToPic(String pathToPic) {
+        this.pathToPic = pathToPic;
+    }
 }
