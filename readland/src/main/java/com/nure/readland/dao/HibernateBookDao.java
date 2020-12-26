@@ -35,20 +35,29 @@ public class HibernateBookDao extends HibernateUtils implements BookDao {
     @Override
     public Book create(Book book) {
         try(Session session = getSessionFactory().openSession()){
-
+            book = (Book)session.save(book);
+            return book;
         }catch (Exception e){
-
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
     public Book update(Book book) {
-        return null;
+        try(Session session = getSessionFactory().openSession()){
+            session.update(book);
+            return book;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Book book) {
-
+        try(Session session = getSessionFactory().openSession()){
+            session.delete(book);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
