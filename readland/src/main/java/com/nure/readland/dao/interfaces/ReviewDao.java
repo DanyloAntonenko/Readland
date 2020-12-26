@@ -9,5 +9,5 @@ public interface ReviewDao {
     List<Review> getAll();
     List<Review> getReviewsForBook(Book book);
     Review create(Review review);
-    Review delete(Review review);
+    void delete(Review review);
 }

@@ -10,5 +10,5 @@ public interface UserDao {
     User findByLogin(String login);
     User create(User user);
     User update(User user);
-    User delete(User user);
+    void delete(User user);
 }

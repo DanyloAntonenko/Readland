@@ -23,7 +23,6 @@ public class HibernateReviewDao extends HibernateUtils implements ReviewDao {
     }
 
     @Override
-    public Review delete(Review review) {
-        return null;
+    public void delete(Review review) {
     }
 }

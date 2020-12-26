@@ -57,16 +57,30 @@ public class HibernateUserDao extends HibernateUtils implements UserDao {
 
     @Override
     public User create(User user) {
-        return null;
+        try(Session session = getSessionFactory().openSession()){
+            user = (User)session.save(user);
+            return user;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public User update(User user) {
-        return null;
+        try(Session session = getSessionFactory().openSession()){
+            session.update(user);
+            return user;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public User delete(User user) {
-        return null;
+    public void delete(User user) {
+        try(Session session = getSessionFactory().openSession()){
+            session.delete(user);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
