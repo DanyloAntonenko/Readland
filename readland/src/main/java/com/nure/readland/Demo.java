@@ -4,6 +4,7 @@ import com.nure.readland.dao.HibernateUtils;
 import com.nure.readland.model.Book;
 import com.nure.readland.model.Role;
 import com.nure.readland.model.User;
+import com.nure.readland.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -12,6 +13,26 @@ import java.util.List;
 //TODO запустить мэйн этого класса для заполнения БД
 public class Demo {
     public static void main(String[] args) {
+        UserService userService = new UserService();
+        List<User> users = userService.findAll();
+        users.forEach(user -> {
+            System.out.print(user.getId());
+            System.out.print(" ");
+            System.out.print(user.getLogin());
+            System.out.print(" ");
+            System.out.print(user.getPassword());
+            System.out.print(" ");
+            System.out.print(user.getName());
+            System.out.print(" ");
+            System.out.print(user.getSurname());
+            System.out.print(" ");
+            System.out.print(user.getRole().getId());
+            System.out.print(" ");
+            System.out.print(user.getRole().getName());
+            System.out.print(" | ");
+            user.getChosen().forEach(chosen -> System.out.print(chosen.getId()));
+            System.out.println();
+        });
         /*Session session = HibernateUtils.getSessionFactory().openSession();
 
         Role role1 = new Role();

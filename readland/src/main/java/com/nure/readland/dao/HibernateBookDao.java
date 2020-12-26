@@ -32,6 +32,18 @@ public class HibernateBookDao extends HibernateUtils implements BookDao {
         }
     }
 
+    public Book getByName(String name){
+        try(Session session = getSessionFactory().openSession()){
+            Query query = session.createQuery("from Book where name like :name");
+            query.setParameter("name", name);
+            List<Book> res = query.list();
+            if(res.size() > 0){
+                return res.get(0);
+            }
+            return null;
+        }
+    }
+
     @Override
     public Book create(Book book) {
         try(Session session = getSessionFactory().openSession()){

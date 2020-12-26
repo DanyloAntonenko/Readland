@@ -29,9 +29,10 @@ public class UserService implements UserDao {
         return userDao.findByLogin(login);
     }
 
-
+    //TODO на вызове проверять на Runtime, IllegalState, NullPointer
     @Override
-    public User create(User user) {
+    public User create(User user) throws RuntimeException {
+        checkNotNull(user);
         checkLogin(user.getLogin());
         checkLoginExists(user.getLogin());
         checkPassword(user.getPassword());
@@ -41,8 +42,10 @@ public class UserService implements UserDao {
         return userDao.create(user);
     }
 
+    //TODO на вызове проверять на Runtime, IllegalState, NullPointer
     @Override
-    public User update(User user) {
+    public User update(User user) throws RuntimeException {
+        checkNotNull(user);
         checkLogin(user.getLogin());
         checkPassword(user.getPassword());
         checkName(user.getName());
@@ -51,71 +54,79 @@ public class UserService implements UserDao {
         return userDao.update(user);
     }
 
+    //TODO на вызове проверять на Runtime, IllegalState, NullPointer
     @Override
-    public void delete(User user) {
+    public void delete(User user) throws RuntimeException {
+        checkNotNull(user);
         checkId(user.getId());
         userDao.delete(user);
     }
 
-    private void checkId(Long id){
-        if(id == null){
+    private void checkNotNull(User user) {
+        if (user == null) {
+            throw new NullPointerException("user was null");
+        }
+    }
+
+    private void checkId(Long id) {
+        if (id == null) {
             throw new NullPointerException("id was null");
         }
-        if(id < 1){
+        if (id < 1) {
             throw new IllegalStateException("id was less than 1");
         }
     }
 
-    private void checkLogin(String login){
-        if(login == null){
+    private void checkLogin(String login) {
+        if (login == null) {
             throw new NullPointerException("login was null");
         }
-        if(login.trim().length() == 0){
+        if (login.trim().length() == 0) {
             throw new IllegalStateException("login is empty");
         }
     }
 
-    private void checkLoginExists(String login){
-        if(userDao.findByLogin(login) != null){
+    private void checkLoginExists(String login) {
+        if (userDao.findByLogin(login) != null) {
             throw new SecurityException("login already exists");
         }
     }
 
-    private void checkPassword(String password){
-        if(password == null){
+    private void checkPassword(String password) {
+        if (password == null) {
             throw new NullPointerException("password was null");
         }
-        if(password.trim().length() == 0){
+        if (password.trim().length() == 0) {
             throw new IllegalStateException("password was empty");
         }
     }
 
-    private void checkName(String name){
-        if(name == null){
+    private void checkName(String name) {
+        if (name == null) {
             throw new NullPointerException("name was null");
         }
-        if(name.trim().length() == 0){
+        if (name.trim().length() == 0) {
             throw new IllegalStateException("name was empty");
         }
     }
 
-    private void checkSurname(String surname){
-        if(surname== null){
+    private void checkSurname(String surname) {
+        if (surname == null) {
             throw new NullPointerException("name was null");
         }
-        if(surname.trim().length() == 0){
+        if (surname.trim().length() == 0) {
             throw new IllegalStateException("name was empty");
         }
     }
 
-    private void checkRole(Role role){
-        if(role == null){
+    private void checkRole(Role role) {
+        if (role == null) {
             throw new NullPointerException("role was null");
         }
-        if(role.getId() == null){
+        if (role.getId() == null) {
             throw new NullPointerException("role id was null");
         }
-        if(role.getId() < 1){
+        if (role.getId() < 1) {
             throw new IllegalStateException("role id was less than 0");
         }
 
