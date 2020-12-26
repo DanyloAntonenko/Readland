@@ -30,6 +30,7 @@ public class HibernateChosenDao extends HibernateUtils implements ChosenDao {
 		}
 	}
 
+
 	@Override
 	public void delete(Chosen chosen) {
 		try (Session session = getSessionFactory().openSession()) {
