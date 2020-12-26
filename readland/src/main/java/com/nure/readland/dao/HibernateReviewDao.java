@@ -30,7 +30,7 @@ public class HibernateReviewDao extends HibernateUtils implements ReviewDao {
 	}
 
 	@Override
-	public Review create(Review review) {
+	public Review add(Review review) {
 		try (Session session = getSessionFactory().openSession()) {
 			return (Review) session.save(review);
 		} catch (Exception e) {
