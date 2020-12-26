@@ -32,17 +32,29 @@ public class UserService implements UserDao {
 
     @Override
     public User create(User user) {
-        return null;
+        checkLogin(user.getLogin());
+        checkLoginExists(user.getLogin());
+        checkPassword(user.getPassword());
+        checkName(user.getName());
+        checkSurname(user.getSurname());
+        checkRole(user.getRole());
+        return userDao.create(user);
     }
 
     @Override
     public User update(User user) {
-        return null;
+        checkLogin(user.getLogin());
+        checkPassword(user.getPassword());
+        checkName(user.getName());
+        checkSurname(user.getSurname());
+        checkRole(user.getRole());
+        return userDao.update(user);
     }
 
     @Override
     public void delete(User user) {
-
+        checkId(user.getId());
+        userDao.delete(user);
     }
 
     private void checkId(Long id){
@@ -60,6 +72,12 @@ public class UserService implements UserDao {
         }
         if(login.trim().length() == 0){
             throw new IllegalStateException("login is empty");
+        }
+    }
+
+    private void checkLoginExists(String login){
+        if(userDao.findByLogin(login) != null){
+            throw new SecurityException("login already exists");
         }
     }
 
@@ -81,7 +99,7 @@ public class UserService implements UserDao {
         }
     }
 
-    private void checkSurnname(String surname){
+    private void checkSurname(String surname){
         if(surname== null){
             throw new NullPointerException("name was null");
         }
@@ -91,6 +109,15 @@ public class UserService implements UserDao {
     }
 
     private void checkRole(Role role){
+        if(role == null){
+            throw new NullPointerException("role was null");
+        }
+        if(role.getId() == null){
+            throw new NullPointerException("role id was null");
+        }
+        if(role.getId() < 1){
+            throw new IllegalStateException("role id was less than 0");
+        }
 
     }
 
