@@ -45,7 +45,6 @@ public class ReviewController {
 		HashMap result = new ObjectMapper().readValue(body, HashMap.class);
 		Review review = new Review();
 		review.setBook(bs.getById((Long) result.get("book")));
-		review.setUser(us.findById((Long) result.get(("user"))));
 		review.setComment((String) result.get("comment"));
 		review.setMark((Integer) result.get("mark"));
 		return rs.create(review);
