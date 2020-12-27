@@ -19,6 +19,7 @@ public class Book {
     private Long views;
 
     @Column
+    // TODO: 27.12.2020 @ElementCollection
     private String tags;
 
     @Column
@@ -85,5 +86,21 @@ public class Book {
 
     public void setPathToPic(String pathToPic) {
         this.pathToPic = pathToPic;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return id.equals(book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

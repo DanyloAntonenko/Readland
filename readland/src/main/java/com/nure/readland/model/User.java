@@ -1,5 +1,7 @@
 package com.nure.readland.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,10 +11,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @JsonIgnore
     @Column(name = "login")
     private String login;
-
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 

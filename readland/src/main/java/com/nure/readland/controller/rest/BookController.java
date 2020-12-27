@@ -4,72 +4,74 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nure.readland.controller.Constant;
 import com.nure.readland.model.Book;
+import com.nure.readland.service.BookService;
+import com.nure.readland.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping(Constant.API_BOOK)
 public class BookController {
+	@Autowired
+	BookService bookService;
+
+	@Autowired
+	UserService userService;
 
 	@GetMapping()
 	protected Iterable<Book> getAllBooks() {
-		return null;
+		return bookService.getAll();
 	}
 
-	@GetMapping("search/")
+	@GetMapping("/search")
 	protected Iterable searchBooks(@RequestParam("op") String param,
 								   @RequestParam("q") String query) {
 		if (param.equals("tag")) {
-			// TODO: 26.12.2020 search by tag
-		} else if (param.equals("author")) {
-			// TODO: 26.12.2020 search by author
-		} else if (param.equals("genre")) {
-			// TODO: 26.12.2020 search by genre
+			return bookService.findByTag(query);
+		} else if (param.equals("name")) {
+			var res = new ArrayList<Book>();
+			res.add(bookService.getByName(query));
+			return res;
 		}
 		return null;
 	}
 
 	@GetMapping("{id}")
 	protected Book getBook(@PathVariable("id") String id) {
-		// TODO: 26.12.2020 nujno bolshe dao
-		return null;
+		var book = bookService.getById(Long.valueOf(id));
+		bookService.addView(book);
+		return book;
 	}
 
 
 	@PatchMapping("{id}")
-	protected Book changeBook(@PathVariable("id") String id, @RequestBody String body)
-			throws JsonProcessingException {
-		Book result =
-				new ObjectMapper().readValue(body, Book.class);
-		// TODO: 26.12.2020 more dao
-		return null;
+	protected Book changeBook(@PathVariable("id") String id,
+							  @RequestBody String body) throws JsonProcessingException {
+		Book result = new ObjectMapper().readValue(body, Book.class);
+		return bookService.update(result);
 	}
 
 	@DeleteMapping("{id}")
 	protected void deleteBook(@PathVariable String id) {
-		// TODO: 26.12.2020 add book
-		return;
+		bookService.delete(bookService.getById(Long.valueOf(id)));
 	}
 
 	@PutMapping()
-	protected void addBook(@RequestBody String body) throws JsonProcessingException {
-		Book result =
-				new ObjectMapper().readValue(body, Book.class);
-		// TODO: 26.12.2020 need dao
-
+	protected Book addBook(@RequestBody String body) throws JsonProcessingException {
+		Book result = new ObjectMapper().readValue(body, Book.class);
+		return bookService.create(result);
 	}
 
 	@PostMapping("/{book_id}/add")
 	protected void addBookToCollection(@PathVariable String book_id) {
-		// TODO: 26.12.2020 need dao
-		return;
+		userService.addBook(userService.getCurrentUser(), bookService.getById(Long.valueOf(book_id)));
 	}
 
 	@PostMapping("/{book_id}/remove")
 	protected void removeBookFromCollection(@PathVariable String book_id) {
-		// TODO: 26.12.2020 need dao
-		return;
+		userService.removeBook(userService.getCurrentUser(), bookService.getById(Long.valueOf(book_id)));
 	}
-
-
 
 }
