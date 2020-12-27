@@ -10,8 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ReviewsService implements ReviewDao {
+public class ReviewService implements ReviewDao {
 	HibernateReviewDao reviewDao = new HibernateReviewDao();
+
+	public Review getById(Long id){
+		UserService.checkId(id);
+		return reviewDao.getById(id);
+	}
 
 	@Override
 	public List<Review> getAll() {
@@ -37,6 +42,7 @@ public class ReviewsService implements ReviewDao {
 	@Override
 	public void delete(Review review) {
 		checkIfNotNull(review);
+		checkUser(review.getUser());
 		reviewDao.delete(review);
 	}
 

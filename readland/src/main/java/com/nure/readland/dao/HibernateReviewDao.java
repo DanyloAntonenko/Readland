@@ -46,4 +46,18 @@ public class HibernateReviewDao extends HibernateUtils implements ReviewDao {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public Review getById(Long id) {
+		try (Session session = getSessionFactory().openSession()) {
+			Query query = session.createQuery("from Review where id = :id");
+			query.setParameter("id", id);
+			List<Review> res = query.list();
+			if (res.size() > 0) {
+				return res.get(0);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
 }
