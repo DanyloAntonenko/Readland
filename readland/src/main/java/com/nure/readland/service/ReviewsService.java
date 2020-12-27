@@ -72,6 +72,8 @@ public class ReviewsService implements ReviewDao {
 	public static void checkUser(User user){
 		if (user == null)
 			throw new NullPointerException("user was null");
+		if(!user.getId().equals(UserService.getCurrentUser().getId()))
+			throw new IllegalStateException("user was not same");
 	}
 
 }

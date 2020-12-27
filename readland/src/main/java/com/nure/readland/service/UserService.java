@@ -83,13 +83,9 @@ public class UserService implements UserDao {
 		userDao.update(user);
 	}
 
-	public User getCurrentUser() {
+	public static User getCurrentUser() {
 		// TODO: 27.12.2020 накиньте фильтры на запросики в конфигурации и ничего не будет
-		try {
 			return ((MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-		} catch (Exception ex) {
-			return null;
-		}
 	}
 
 	private void checkLoginExists(String login) {
