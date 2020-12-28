@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class ReviewService implements ReviewDao {
-	HibernateReviewDao reviewDao = new HibernateReviewDao();
+	private HibernateReviewDao reviewDao = new HibernateReviewDao();
 
 	public Review getById(Long id){
 		UserService.checkId(id);

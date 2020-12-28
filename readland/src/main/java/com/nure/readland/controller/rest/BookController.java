@@ -28,6 +28,7 @@ public class BookController {
 	@GetMapping("/search")
 	protected Iterable searchBooks(@RequestParam("op") String param,
 								   @RequestParam("q") String query) {
+		//todo 28.12.2020 добавить обработку исключений, которые выбрасывает сервис
 		if (param.equals("tag")) {
 			return bookService.findByTag(query);
 		} else if (param.equals("name")) {
@@ -63,6 +64,7 @@ public class BookController {
 		Book result = new ObjectMapper().readValue(body, Book.class);
 		return bookService.create(result);
 	}
+
 
 	@PostMapping("/{book_id}/add")
 	protected void addBookToCollection(@PathVariable String book_id) {
