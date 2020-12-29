@@ -51,6 +51,7 @@ public class UserService implements UserDao {
 	//TODO на вызове проверять на Runtime, IllegalState, NullPointer
 	@Override
 	public User update(User user) throws RuntimeException {
+		checkIdEquals(user.getId());
 		checkNotNull(user);
 		checkLogin(user.getLogin());
 		checkPassword(user.getPassword());
@@ -155,6 +156,10 @@ public class UserService implements UserDao {
 		if (role.getId() < 1) {
 			throw new IllegalStateException("role id was less than 0");
 		}
+	}
 
+	public static void checkIdEquals(Long id){
+		if(!UserService.getCurrentUser().getId().equals(id))
+			throw new IllegalStateException("id was wrong");
 	}
 }

@@ -33,7 +33,8 @@ public class UserController {
 		User parsed = new ObjectMapper().readValue(body, User.class);
 		return userService.create(parsed);
 	}
-	@PreAuthorize("hasAnyAuthority('admin', 'lib')")
+
+
 	@PatchMapping("{id}")
 	protected User updateUser(@PathVariable String id, @RequestBody String body) throws JsonProcessingException {
 		User result = new ObjectMapper().readValue(body, User.class);
