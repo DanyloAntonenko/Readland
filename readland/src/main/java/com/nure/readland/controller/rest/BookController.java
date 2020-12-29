@@ -8,9 +8,11 @@ import com.nure.readland.service.BookService;
 import com.nure.readland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 @RestController
 @RequestMapping(Constant.API_BOOK)
@@ -22,8 +24,8 @@ public class BookController {
 	UserService userService;
 
 	@GetMapping()
-	protected Iterable<Book> getAllBooks() {
-		return bookService.getAll();
+	protected Iterable getAllBooks() {
+		return UserService.getCurrentUserAuthorities();
 	}
 
 	@GetMapping("/search")
