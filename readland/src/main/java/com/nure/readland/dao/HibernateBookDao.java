@@ -83,4 +83,14 @@ public class HibernateBookDao extends HibernateUtils implements BookDao {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public List<Book> findByDesc(String query) {
+		try (Session session = getSessionFactory().openSession()) {
+			var crit = session.createCriteria(Book.class);
+			crit.add(Restrictions.like("description", "%" + query + "%"));
+			return crit.list();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

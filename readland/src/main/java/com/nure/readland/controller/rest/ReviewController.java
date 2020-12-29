@@ -44,6 +44,7 @@ public class ReviewController {
 	protected Review createReview(@RequestBody String body) throws JsonProcessingException {
 		HashMap result = new ObjectMapper().readValue(body, HashMap.class);
 		Review review = new Review();
+		review.setUser(UserService.getCurrentUser());
 		review.setBook(bs.getById((Long) result.get("book")));
 		review.setComment((String) result.get("comment"));
 		review.setMark((Integer) result.get("mark"));

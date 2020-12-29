@@ -156,4 +156,7 @@ public class BookService implements BookDao {
 		return bookDao.findByTag(tag);
 	}
 
+	public List<Book> findByDescription(String query) {
+		return bookDao.findByDesc(query);
+	}
 }

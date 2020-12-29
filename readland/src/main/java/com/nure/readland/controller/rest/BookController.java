@@ -35,6 +35,8 @@ public class BookController {
 			var res = new ArrayList<Book>();
 			res.add(bookService.getByName(query));
 			return res;
+		}else if(param.equals("desc")){
+			return bookService.findByDescription(query);
 		}
 		return null;
 	}
