@@ -20,6 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/admin").hasAuthority("admin").and()
                 .authorizeRequests().antMatchers("/user").hasAuthority("user").and()
                 .authorizeRequests().antMatchers("/lib").hasAuthority("lib").and()
+                .authorizeRequests().antMatchers("/api/**").hasAnyAuthority("lib", "user", "admin").and()
                 .formLogin().loginPage("/login").permitAll().successHandler(successHandler).and()
                 .csrf().disable();
     }
