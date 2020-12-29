@@ -25,21 +25,22 @@ public class BookController {
 
 	@GetMapping()
 	protected Iterable getAllBooks() {
-		return UserService.getCurrentUserAuthorities();
+		return bookService.getAll();
 	}
 
 	@GetMapping("/search")
 	protected Iterable searchBooks(@RequestParam("op") String param,
 								   @RequestParam("q") String query) {
 		//todo 28.12.2020 добавить обработку исключений, которые выбрасывает сервис
-		if (param.equals("tag")) {
-			return bookService.findByTag(query);
-		} else if (param.equals("name")) {
-			var res = new ArrayList<Book>();
-			res.add(bookService.getByName(query));
-			return res;
-		}else if(param.equals("desc")){
-			return bookService.findByDescription(query);
+		switch (param) {
+			case "tag":
+				return bookService.findByTag(query);
+			case "name":
+				var res = new ArrayList<Book>();
+				res.add(bookService.getByName(query));
+				return res;
+			case "desc":
+				return bookService.findByDescription(query);
 		}
 		return null;
 	}
