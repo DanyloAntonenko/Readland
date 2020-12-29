@@ -7,6 +7,7 @@ import com.nure.readland.model.Book;
 import com.nure.readland.service.BookService;
 import com.nure.readland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class BookController {
 		return book;
 	}
 
-
+	@PreAuthorize("hasAnyAuthority('admin', 'lib')")
 	@PatchMapping("{id}")
 	protected Book changeBook(@PathVariable("id") String id,
 							  @RequestBody String body) throws JsonProcessingException {
@@ -56,11 +57,13 @@ public class BookController {
 		return bookService.update(result);
 	}
 
+	@PreAuthorize("hasAnyAuthority('admin', 'lib')")
 	@DeleteMapping("{id}")
 	protected void deleteBook(@PathVariable String id) {
 		bookService.delete(bookService.getById(Long.valueOf(id)));
 	}
 
+	@PreAuthorize("hasAnyAuthority('admin', 'lib')")
 	@PutMapping()
 	protected Book addBook(@RequestBody String body) throws JsonProcessingException {
 		Book result = new ObjectMapper().readValue(body, Book.class);
@@ -70,12 +73,12 @@ public class BookController {
 
 	@PostMapping("/{book_id}/add")
 	protected void addBookToCollection(@PathVariable String book_id) {
-		userService.addBook(userService.getCurrentUser(), bookService.getById(Long.valueOf(book_id)));
+		userService.addBook(UserService.getCurrentUser(), bookService.getById(Long.valueOf(book_id)));
 	}
 
 	@PostMapping("/{book_id}/remove")
 	protected void removeBookFromCollection(@PathVariable String book_id) {
-		userService.removeBook(userService.getCurrentUser(), bookService.getById(Long.valueOf(book_id)));
+		userService.removeBook(UserService.getCurrentUser(), bookService.getById(Long.valueOf(book_id)));
 	}
 
 }
