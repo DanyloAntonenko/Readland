@@ -35,14 +35,14 @@ public class ReviewService implements ReviewDao {
 		checkComment(review.getComment());
 		checkMark(review.getMark());
 		checkBook(review.getBook());
-		checkUser(review.getUser());
+//		checkUser(review.getUser());
 		return reviewDao.create(review);
 	}
 
 	@Override
 	public void delete(Review review) {
 		checkIfNotNull(review);
-		checkUser(review.getUser());
+//		checkUser(review.getUser());
 		reviewDao.delete(review);
 	}
 
